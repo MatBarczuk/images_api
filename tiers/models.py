@@ -7,7 +7,7 @@ class Tier(models.Model):
                                     help_text='Can user see link for original image?')
     expired_link_flag = models.BooleanField(default=False, verbose_name='Expiring links',
                                             help_text='Can user create expiring links?')
-    size = models.ManyToManyField('Size', related_name='sizes')
+    size = models.ManyToManyField('Size', related_name='tier')
 
     def __str__(self):
         return f'{self.name}'

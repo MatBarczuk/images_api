@@ -13,11 +13,10 @@ class Image(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-
-        tn_maker = ThumbnailMakerService()
-        tn_maker.make_thumbnails([self.url.name])
-
     def __str__(self):
         return self.name
+
+
+class Thumbnail(models.Model):
+    image = models.URLField()
+    url = models.FileField(upload_to='resized_images/')

@@ -21,4 +21,4 @@ class ExpiringLinksView(viewsets.ViewSet):
             expiring_link_parts = url.rsplit('.', 1)
             expiring_link = f'{expiring_link_parts[0]}{token}.{expiring_link_parts[1]}'
             return Response({'link': expiring_link})
-        return Response({'msg': 'Fail'})
+        return Response(result.errors)
