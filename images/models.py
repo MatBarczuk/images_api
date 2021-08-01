@@ -14,9 +14,13 @@ class Image(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name
+        return f'{self.name}'
 
 
 class Thumbnail(models.Model):
     image = models.URLField()
     url = models.FileField(upload_to='resized_images/')
+    height = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f'{self.url.name}'

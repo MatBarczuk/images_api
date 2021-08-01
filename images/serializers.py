@@ -9,12 +9,6 @@ class ImageSerializer(serializers.ModelSerializer):
         model = Image
 
 
-class ThumbnailSerializer(serializers.ModelSerializer):
-    class Meta:
-        fields = ('image', 'url')
-        model = Thumbnail
-
-
 class ThumbnailGeneratorSerializer(serializers.Serializer):
     image = serializers.URLField()
     heights = serializers.ListField()
