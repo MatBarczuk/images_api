@@ -20,8 +20,9 @@ class ThumbnailViewSet(viewsets.ViewSet):
         result = ThumbnailGeneratorSerializer(data=request.data, context={'user': request.user})
         if result.is_valid():
             heights = result.data.get('heights')
-            url = result.data.get('image')
-            heights_in_db = [thumbnail.height for thumbnail in Thumbnail.objects.filter(image=url)]
+            image = Image.objects.get(author=request.user, name=result.data.get('image'))
+            url = f'http://0.0.0.0:8000{image.url.url}'
+            heights_in_db = [thumbnail.height for thumbnail in Thumbnail.objects.filter(image=image)]
             generated_heights = []
             not_generated_heights = []
             for height in heights:
@@ -38,11 +39,11 @@ class ThumbnailViewSet(viewsets.ViewSet):
 
             resized_links = []
             for height in generated_heights:
-                resized_links.append(Thumbnail.objects.get(image=url, height=height).url.name)
+                resized_links.append(Thumbnail.objects.get(image=image, height=height).url.name)
 
             for height in not_generated_heights:
                 resized_link = f'{resized_link_parts[0]}/resized_images/{resized_link_parts[1]}/{resized_link_parts[2]}_{height}.{resized_link_format[1]}'
                 resized_links.append(resized_link)
-                Thumbnail.objects.create(image=url, url=resized_link, height=height)
+                Thumbnail.objects.create(image=image, url=resized_link, height=height)
             return Response({'link': resized_links})
         return Response(result.errors)

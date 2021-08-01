@@ -10,8 +10,16 @@ class ImageSerializer(serializers.ModelSerializer):
 
 
 class ThumbnailGeneratorSerializer(serializers.Serializer):
-    image = serializers.URLField()
+    image = serializers.CharField(max_length=200)
     heights = serializers.ListField()
+
+    def validate_image(self, value):
+        user = self.context['user']
+        image_name = Image.objects.filter(name=value, author=user)
+
+        if not image_name:
+            raise serializers.ValidationError(f'There is no image with this name {value}')
+        return value
 
     def validate_heights(self, value):
         user = self.context['user']
