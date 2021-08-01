@@ -1,12 +1,14 @@
 from rest_framework import serializers
 
-from images.models import Image, Thumbnail
+from images.models import Image
 
 
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         fields = '__all__'
         model = Image
+        read_only_fields = ['name']
+        extra_kwargs = {'url': {'write_only': True}}
 
 
 class ThumbnailGeneratorSerializer(serializers.Serializer):
