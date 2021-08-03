@@ -1,8 +1,8 @@
 from django.urls import path
 
-from expiring_links.views import ExpiringLinksView
+from expiring_links.views import ExpiringLinkView
 
-expiring_link = ExpiringLinksView.as_view({'post': 'create'})
+expiring_link = ExpiringLinkView.as_view({'post': 'create'})
 urlpatterns = [
     path('links/', expiring_link)
 ]
