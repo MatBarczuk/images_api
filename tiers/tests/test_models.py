@@ -23,7 +23,6 @@ class TierTest(TestCase):
         self.assertEqual(self.tier.name, 'test tier')
         self.assertEqual(self.tier.link_flag, False)
         self.assertEqual(self.tier.expired_link_flag, False)
-        # self.assertEqual(self.tier.size, self.size)
         self.assertEqual(self.tier.__str__(), 'test tier')
 
 

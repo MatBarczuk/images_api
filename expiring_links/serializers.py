@@ -1,13 +1,6 @@
 from rest_framework import serializers
 
-from expiring_links.models import ExpiringLink
 from images.models import Image
-
-
-class ExpiringLinkSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ExpiringLink
-        fields = ('url', 'expiration_date')
 
 
 class ExpiringLinkGeneratorSerializer(serializers.Serializer):
